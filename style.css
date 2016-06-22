@@ -1,0 +1,15 @@
+/* 배경화면 지정. 사이즈 수정 필요 */
+body { background-image: url('./background.jpg'); background-size: 100%; margin: 0; }
+
+h1 { text-align: center; }
+
+#myMap, #enemyMap { width: 320px; height: 320px; text-align: center; }
+#myMap div, #enemyMap div { width: 30px; height: 30px; border: 1px solid gray; margin: 0; padding: 0; display: inline-block; }
+#myMap div:hover, #enemyMap div:hover { cursor: pointer; }
+.selected { background-color: black; } /* 배가 배치된 부분 */
+.over { background-color: gray; } /* 폭격했으나 배가 배치되지 않은 지점 */
+.destroyed { background-color: red; } /* 배가 파괴된 부분 */
+
+#container { width: 800px; margin: 0 auto; }
+#myMapContainer { width: 320px; background-color: rgba( 255, 255, 255, 0.5 ); padding: 20px; border-radius: 20px; float: left; }
+#enemyMapContainer { width: 320px; background-color: rgba( 255, 255, 255, 0.5 ); padding: 20px; border-radius: 20px; float: right; }

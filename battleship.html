@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" type="text/css" href="style.css" />
+		<title>Term Project #2: BattleShip</title>
+	</head>
+	<body>
+		<h1>Battleship</h1>
+		<div id="container">
+			<div id="myMapContainer"><!-- 내 지도 -->
+				MyMap
+				<div id="myMap">
+				</div><!-- 자바스크립트로 출력 -->
+				<div id="ship"><!-- 배치할 배를 선택하는 부분 -->
+				배치할 배(칸수) 선택<br>
+					<a href="#" onClick="allocateShip(event)" id="ship1">5</a> 
+					<a href="#" onClick="allocateShip(event)" id="ship2">4</a> 
+					<a href="#" onClick="allocateShip(event)" id="ship3">3</a> 
+					<a href="#" onClick="allocateShip(event)" id="ship4">3</a> 
+					<a href="#" onClick="allocateShip(event)" id="ship5">2</a>
+				</div>
+			</div>
+			
+			<div id="enemyMapContainer"><!-- 상대방 지도 -->
+				EnemyMap
+				<div id="enemyMap">
+					배치 대기중
+				</div><!-- 자바스크립트로 출력 -->
+			</div>
+		</div>
+
+		<script src="battleship.js"></script><!-- js 파일 불러오기 -->
+	</body>
+</html>
