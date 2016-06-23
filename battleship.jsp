@@ -1,13 +1,16 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!doctype html>
 <html>
 	<head>
 		<meta charset="UTF-8">
 		<link rel="stylesheet" type="text/css" href="style.css" />
 		<title>Term Project #2: BattleShip</title>
+		<script src="jquery-3.0.0.min.js"></script>
+		<script src="common.js"></script>
 	</head>
 	<body>
-		<h1>Battleship</h1>
-		<div id="container">
+		<header><h1>Battleship</h1></header>
+		<content>
 			<div id="myMapContainer"><!-- 내 지도 -->
 				MyMap
 				<div id="myMap">
@@ -28,8 +31,8 @@
 					배치 대기중
 				</div><!-- 자바스크립트로 출력 -->
 			</div>
-		</div>
-
+		</content>
 		<script src="battleship.js"></script><!-- js 파일 불러오기 -->
+		<footer>201404375 정경원</footer>
 	</body>
 </html>
