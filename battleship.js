@@ -50,9 +50,10 @@ function printMyMap () {
 
 	if (destroyed >= 17)
 	{
+		// 패배 처리
 		myTurn = false;
 		clearInterval(connectionCheck);	
-		clearInterval(turn);
+		clearInterval(turnInterval);
 		$("#turn")[0].innerHTML = "<a href='index.jsp'>패배</a>";
 		$("#popup")[0].innerHTML = "<h1>You Lose</h1><a href='index.jsp'>홈으로</a>";
 		$('#popup').bPopup({
@@ -68,6 +69,7 @@ var shipAllocate = true;
 var shipSelect = "";
 
 function rotateShip () {
+	// 배치할 배 방향 전환
 	if(shipDirection)
 		shipDirection = false;
 	else
@@ -101,6 +103,7 @@ function allocateShip (ev) {
 }
 
 function mouseOver (ev) {
+	// 배치할 위치 미리보기
 	var i = eval(ev.target.id.slice(1,2));
 	var j = eval(ev.target.id.slice(2));
 	if(shipDirection)
@@ -164,6 +167,7 @@ function mouseOver (ev) {
 }
 
 function mouseOut (ev) {
+	// 배치할 위치 미리보기 삭제
 	shipAllocate = true;
 	var i = eval(ev.target.id.slice(1,2));
 	var j = eval(ev.target.id.slice(2));
@@ -212,7 +216,7 @@ function mouseOut (ev) {
 }
 
 function mouseClick (ev) {
-	// 배를 배치한다
+	// 현재의 위치에 배 배치
 	if(shipAllocate)
 	{
 	shipSize = 0;
@@ -354,10 +358,11 @@ function printEnemyMap () {
 
 	if (destroyed >= 17)
 	{
+		// 승리 처리
 		myTurn = false;
 		clearInterval(damageInterval);
 		clearInterval(connectionCheck);
-		clearInterval(turn);
+		clearInterval(turnInterval);
 		$("#turn")[0].innerHTML = "<a href='index.jsp'>승리</a>";
 		$("#popup")[0].innerHTML = "<h1>You Win</h1><a href='index.jsp'>홈으로</a>";
 		$('#popup').bPopup({
@@ -368,7 +373,7 @@ function printEnemyMap () {
 var damageInterval;
 
 function attack (ev) {
-	// 상대방에게 폭격
+	// 상대방에게 공격
 	if(myTurn)
 	{
 		myTurn = false;
@@ -407,7 +412,7 @@ function attack (ev) {
 }
 
 function damage () {
-	// 상대방에게 폭격
+	// 상대방의 공격 처리
 	$.ajax({
 		type:"GET",
 		url:"damage.jsp",
@@ -444,6 +449,7 @@ function damage () {
 	});	
 }
 
+// 차례 출력
 var turnInterval;
 function turn () {
 	if(myTurn)
