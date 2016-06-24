@@ -1,8 +1,5 @@
-/*
-Backspace, F5, Ctrl + r 새로고침 막기
-http://pyonji.tistory.com/18
-*/
-/*$(document).keydown(function(e) {
+//Backspace, F5, Ctrl + r 새로고침 막기   http://pyonji.tistory.com/18
+$(document).keydown(function(e) {
     key = (e) ? e.keyCode : event.keyCode;
      
     var t = document.activeElement;
@@ -26,7 +23,21 @@ http://pyonji.tistory.com/18
             }
         }
     }
-});*/
+});
+
+// 사운드 재생 http://zzino.co.kr/blog/?p=292
+var player = new Audio('');
+function soundPlay(URL){
+        if(player.paused || url != player.src){
+                if(player.canPlayType('audio/mp3')){
+                        player.src = URL;
+                }
+                player.play();
+        }else{
+                player.pause();
+            player.currentTIme = 0;
+        }
+}
 
 function waitPlayer () {
     $.ajax({

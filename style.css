@@ -3,17 +3,28 @@ html { width: 100%; height: 100%; }
 body { width: 100%; height: 100%; background-image: url('./img/background.jpg'); background-size: cover 100%; background-repeat: no-repeat; 	background-position: top center; margin: 0; display: flex; flex-direction: column;}
 
 header { height: 100px; }
-h1 { text-align: center; font-size: 300%; font-family: 'Permanent Marker', cursive; }
+h1 { text-align: center; font-size: 50px; font-family: 'Permanent Marker', cursive; }
+#popup h1 { height: 100px; margin: -10px 0 -10px 0;}
 
 content { flex: 1 auto; width: 800px; margin: 0 auto; text-align: center; }
+#container { margin: auto; overflow: hidden; }
+
+#turn { width: 200px; line-height: 100px; margin: auto; clear: both; }
 #myMapContainer { width: 320px; background-color: rgba( 255, 255, 255, 0.5 ); padding: 20px; border-radius: 20px; float: left; }
 #enemyMapContainer { width: 320px; background-color: rgba( 255, 255, 255, 0.5 ); padding: 20px; border-radius: 20px; float: right; }
+span { font-family: 'Permanent Marker', cursive; font-size: 20px;}
 
-#myMap, #enemyMap { width: 320px; height: 320px; text-align: center; }
+#myMap, #enemyMap { width: 320px; height: 320px; text-align: center;  }
 #myMap div, #enemyMap div { width: 30px; height: 30px; border: 1px solid gray; margin: 0; padding: 0; display: inline-block; }
 #myMap div:hover, #enemyMap div:hover { cursor: pointer; }
 .selected { background-color: black; } /* 배가 배치된 부분 */
 .over { background-color: gray; } /* 폭격했으나 배가 배치되지 않은 지점 */
 .destroyed { background-color: red; } /* 배가 파괴된 부분 */
 
+#ship { font-weight: bold; }
+#ship a { text-decoration: none; color: #000; }
+#ship a:hover { color: red; }
+
 footer { line-height: 50px; text-align: center; background-color: rgba(255, 255, 255, 0.7);}
+
+#popup { display: none; width: 300px; line-height: 200px; height: 200px; background-color: white; border-radius: 20px; text-align: center; }
