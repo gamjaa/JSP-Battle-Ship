@@ -7,6 +7,7 @@
 		<title>Term Project #2: BattleShip</title>
 		<script src="jquery-3.0.0.min.js"></script>
 		<script src="common.js"></script>
+		<script src="waitCheck.js"></script>
 	</head>
 	<body>
 		<header><h1>Battleship</h1></header>

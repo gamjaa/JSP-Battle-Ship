@@ -12,11 +12,11 @@ var shipCount = 0;
 
 // 자신의 지도 배열을 0으로 초기화
 for (var i=0; i<10; i++)
+{
+	for (var j=0; j<10; j++)
 	{
-		for (var j=0; j<10; j++)
-		{
-			myMap[i][j] = 0;
-		}
+		myMap[i][j] = 0;
+	}
 }
 
 function printMyMap () {
@@ -45,8 +45,78 @@ function printMyMap () {
 			}
 			else	// 빈 지점
 			{
-				myMapDiv.innerHTML += '<div id="m'+i+j+'" onClick="mouseClick(event)">&nbsp;</div>';
+				myMapDiv.innerHTML += '<div id="m'+i+j+'" onClick="mouseClick(event)" onMouseOver="mouseOver(event)" onMouseOut="mouseOut(event)">&nbsp;</div>';
 			}
+		}
+	}
+}
+
+function allocateShip (ev) {
+	// 배치할 배 선택
+	if (!shipSizeRemain)
+	{
+		for (var i=0; i<10; i++)
+		{
+			for (var j=0; j<10; j++)
+			{
+				if (myMap[i][j] == 1)
+				{
+					myMap[i][j] = 2;
+				}
+			}
+		}
+		
+		shipSizeRemain = eval(document.getElementById(ev.target.id).innerHTML);
+		shipSize = eval(document.getElementById(ev.target.id).innerHTML);
+		document.getElementById(ev.target.id).innerHTML = "";
+	}	
+}
+
+function mouseOver (ev) {
+	var i = ev.target.id.slice(1,2);
+	var j = ev.target.id.slice(2);
+
+}
+
+function mouseOut (ev) {
+	
+}
+
+function mouseClick (ev) {
+	// 배를 배치한다
+	if (shipSizeRemain)
+	{
+		var i = ev.target.id.slice(1,2);
+		var j = ev.target.id.slice(2);
+		if (myMap[i][j] == 1)
+		{
+			myMap[i][j] = 0;
+			ev.target.setAttribute("class", "");
+			shipSizeRemain++;
+			shipCount--;
+		}
+		else if (myMap[i][j] == 0)
+		{
+			myMap[i][j] = 1;
+			ev.target.setAttribute("class", "selected");
+			shipSizeRemain--;
+			shipCount++;
+		}
+
+		if (shipCount >= 17)
+		{
+			alert("배치 완료!");
+			jQuery.ajaxSettings.traditional = true;
+			$.ajax({
+				type:"POST",
+				url:"allocateDone.jsp",
+				data: {"myMap[]":myMap},
+				success:function(data){
+				},
+				error:function( xhr, status, error ){
+					console.log(xhr + "\n" + status + "\n" + error);
+				}
+			});
 		}
 	}
 }
@@ -88,39 +158,13 @@ function check (shipSize) {
 	// 배를 제대로 배치했는지 체크: 미구현
 }
 
-function mouseClick (ev) {
-	// 배를 배치한다
-	if (shipSizeRemain)
-	{
-		var i = ev.target.id.slice(1,2);
-		var j = ev.target.id.slice(2);
-		if (myMap[i][j] == 1)
-		{
-			myMap[i][j] = 0;
-			ev.target.setAttribute("class", "");
-			shipSizeRemain++;
-			shipCount--;
-		}
-		else if (myMap[i][j] == 0)
-		{
-			myMap[i][j] = 1;
-			ev.target.setAttribute("class", "selected");
-			shipSizeRemain--;
-			shipCount++;
-		}
-
-		if (shipCount >= 17)
-		{
-			alert("배치 완료!");
-			printEnemyMap();
-		}
-	}
-}
 
 function attack (ev) {
 	// 상대방에게 폭격
 	var i = ev.target.id.slice(1,2);
 	var j = ev.target.id.slice(2);
+
+
 
 	if (myMap[i][j])	// 상대방의 배가 존재(서버 통신 부분 미구현이므로 임시적으로 자신의 배치 가지고 체크)
 	{
@@ -138,25 +182,23 @@ function attack (ev) {
 	}
 }
 
-function allocateShip (ev) {
-	// 배치할 배 선택
-	if (!shipSizeRemain)
-	{
-		for (var i=0; i<10; i++)
-		{
-			for (var j=0; j<10; j++)
+function allocateCheck () {
+	// 상대방 배치 완료 확인
+	$.ajax({
+		type:"GET",
+		url:"allocateCheck.jsp",
+		success:function(data){
+			if(parseInt(data))
 			{
-				if (myMap[i][j] == 1)
-				{
-					myMap[i][j] = 2;
-				}
+				printEnemyMap();
+				clearInterval(allocateCheckInterval);
 			}
+		},
+		error:function( xhr, status, error ){
+			console.log(xhr + "\n" + status + "\n" + error);
 		}
-		
-		shipSizeRemain = eval(document.getElementById(ev.target.id).innerHTML);
-		shipSize = eval(document.getElementById(ev.target.id).innerHTML);
-		document.getElementById(ev.target.id).innerHTML = "";
-	}	
+	});
 }
 
 printMyMap();
+var allocateCheckInterval = setInterval("allocateCheck()", 1000);

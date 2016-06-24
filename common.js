@@ -2,7 +2,7 @@
 Backspace, F5, Ctrl + r 새로고침 막기
 http://pyonji.tistory.com/18
 */
-$(document).keydown(function(e) {
+/*$(document).keydown(function(e) {
     key = (e) ? e.keyCode : event.keyCode;
      
     var t = document.activeElement;
@@ -26,4 +26,18 @@ $(document).keydown(function(e) {
             }
         }
     }
-});
+});*/
+
+function waitPlayer () {
+    $.ajax({
+        type:"GET",
+        url:"waitPlayer.jsp",
+        success:function(data){
+            if(parseInt(data))
+                location.replace("battleship.jsp");
+        },
+        error:function( xhr, status, error ){
+            console.log(xhr + "\n" + status + "\n" + error);
+        }
+    }); 
+}
